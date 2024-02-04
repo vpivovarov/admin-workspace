@@ -12,7 +12,7 @@ Demo project that shows our implementation of admin panel.
 ### How to start
 1. Make sure that you have installed `v18.19.0` [NodeJS](https://nodejs.org/download/release/v18.19.0/)
 2. Open sidebar `Settings->SSH and GPG keys`
-3. Go over the [instruction](https://docs.github.com/authentication/connecting-to-github-with-ssh)
+3. Follow the [instruction](https://docs.github.com/authentication/connecting-to-github-with-ssh)
 4. Open terminal on your laptop
     1. `cd` to your pre-selected path where you will keep the project
     2. `mkdir <folder-name>`
