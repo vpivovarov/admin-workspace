@@ -4,6 +4,7 @@
   "description": "Demo backend",
   "main": "index.ts",
   "scripts": {
+    "lint": "eslint ./index.ts --fix",
     "build": "tsc -p tsconfig.json",
     "start": "node index.js"
   },

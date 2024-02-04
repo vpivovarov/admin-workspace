@@ -1,0 +1,35 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+RESET='\033[0m'
+
+
+# Protect master from accidental commits.
+echo "\n[${YELLOW}checking${RESET}] Pre-commit Hook:: Checking branch name..."
+branchName=$(git branch | grep '*' | sed 's/* //')
+
+if [ $branchName == 'master' ]
+then
+  echo "\n[${RED}error${RESET}] Commit directly to master branch is not allowed!\n" && exit 1
+fi
+
+if [ $branchName == 'develop' ]
+then
+  echo "\n[${RED}error${RESET}] Cannot push to remote develop branch, please create your own branch and use PR." && exit 1
+fi
+
+if [[ $branchName != "AW-"[0-9][0-9][0-9][0-9]* ]]; then
+    echo "\n[${RED}error${RESET}] Branch name must start with 'AW-' followed by 4 digits." && exit 1
+fi
+
+if [[ ! $branchName =~ ^AW- ]]; then
+    echo "\n[${RED}error${RESET}] Branch name must start with 'AW-' in uppercase letters." && exit 1
+fi
+
+echo "[${GREEN}success${RESET}] Finish checking branch name.\n"
+
+npm run lint
+
+exit 0
