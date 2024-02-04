@@ -1,0 +1,30 @@
+{
+  "name": "admin-workspace",
+  "version": "1.0.0",
+  "description": "Demo project to show our skills",
+  "main": "index.js",
+  "scripts": {
+    "build-backend": "cd ./backend ; npm run build",
+    "start-backend": "cd ./backend ; npm start",
+    "start-fe": "cd ./frontend ; npm run start",
+    "start-be": "npm-run-all -l build-backend start-backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/vpivovarov/admin-workspace.git"
+  },
+  "keywords": [
+    "admin",
+    "console",
+    "demo"
+  ],
+  "author": "vpivovarov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vpivovarov/admin-workspace/issues"
+  },
+  "homepage": "https://github.com/vpivovarov/admin-workspace#readme",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
