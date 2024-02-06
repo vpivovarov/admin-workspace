@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/vpivovarov/admin-workspace#readme",
   "dependencies": {
-    "admin-workspace": "file:..",
     "fastify": "^4.26.0"
   },
   "devDependencies": {
