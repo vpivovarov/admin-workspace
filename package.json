@@ -13,7 +13,8 @@
     "start-be": "npm-run-all -l build-backend start-backend",
     "init-be": "npm i --prefix ./backend",
     "init-fe": "npm i --prefix ./frontend",
-    "init": "npm-run-all -l init-be init-fe",
+    "init-ws": "npm i",
+    "init": "npm-run-all init-ws init-be init-fe",
     "prepare": "husky"
   },
   "repository": {
