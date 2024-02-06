@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
+
 import "./App.css";
 
+/**
+ * App component
+ */
 function App() {
   const [text, setText] = useState("");
 
   useEffect(() => {
+    const randomTime = 500;
+
     const timerId = setTimeout(async () => {
       const response = await fetch("/ping", { method: "get" });
 
@@ -15,7 +20,7 @@ function App() {
 
       const text = await response.text();
       setText(text);
-    }, 500);
+    }, randomTime);
 
     return () => {
       clearInterval(timerId);
@@ -25,7 +30,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         {text ? (
           <p>Response from the server is {text}.</p>
         ) : (
