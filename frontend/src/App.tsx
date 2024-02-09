@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { createUseStyles } from "react-jss";
 
-import "./App.css";
+import { fonts } from "./theme/base-configuration";
+import { AwTheme } from "./theme";
 
 /**
  * App component
  */
 function App() {
   const [text, setText] = useState("");
+
+  const styles = useStyles();
 
   useEffect(() => {
     const randomTime = 500;
@@ -28,10 +32,10 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className={styles.root}>
       <header className="App-header">
         {text ? (
-          <p>Response from the server is {text}.</p>
+          <p className={styles.text}>Response from the server is {text}.</p>
         ) : (
           <span>loading...</span>
         )}
@@ -49,3 +53,13 @@ function App() {
 }
 
 export default App;
+
+const useStyles = createUseStyles((theme: AwTheme) => ({
+  root: {
+    background: theme.palette.blue.extraLight,
+  },
+  text: {
+    fontFamily: fonts.inter,
+    fontSize: "13px",
+  },
+}));
