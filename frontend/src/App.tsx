@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createUseStyles } from "react-jss";
 
 import { fonts } from "./theme/base-configuration";
+import { Text } from "./components";
 import { AwTheme } from "./theme";
 
 /**
@@ -35,18 +36,15 @@ function App() {
     <div className={styles.root}>
       <header className="App-header">
         {text ? (
-          <p className={styles.text}>Response from the server is {text}.</p>
+          <Text tag="span" variant="body">
+            Response from the server is {text}.
+          </Text>
         ) : (
           <span>loading...</span>
         )}
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Text tag="a" variant="bodyError">
           Learn React
-        </a>
+        </Text>
       </header>
     </div>
   );
@@ -56,7 +54,7 @@ export default App;
 
 const useStyles = createUseStyles((theme: AwTheme) => ({
   root: {
-    background: theme.palette.blue.extraLight,
+    // background: theme.palette.coolGrey.extraDark,
   },
   text: {
     fontFamily: fonts.inter,
