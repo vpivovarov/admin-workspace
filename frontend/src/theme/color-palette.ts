@@ -59,8 +59,8 @@ export const getColorContrastOptions = (
   dark: string = colorPalette.white
 ): ColorContrastOptions => {
   return {
-    extraLight: colorLuminance(baseColor, "200"),
-    light: colorLuminance(baseColor, "400"),
+    extraLight: addAlpha(colorLuminance(baseColor, "200"), 20),
+    light: addAlpha(colorLuminance(baseColor, "400"), 40),
     color: baseColor,
     dark: colorLuminance(baseColor, "600"),
     extraDark: colorLuminance(baseColor, "800"),
@@ -100,10 +100,12 @@ const colorLuminance = (hex: string, lum: LuminteOptions = "500") => {
 
     const hexadecimalPrimaryColor = primaryColorInt.toString(16);
 
-    newHex += ("00" + hexadecimalPrimaryColor).substr(
-      hexadecimalPrimaryColor.length
-    );
+    newHex += hexadecimalPrimaryColor;
   }
 
   return newHex;
+};
+
+const addAlpha = (hex: string, opacity: number) => {
+  return hex + opacity;
 };

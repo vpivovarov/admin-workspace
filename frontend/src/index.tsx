@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { ThemeProvider } from "react-jss";
 
-import App from "./App";
+import { App } from "./components";
 import { ErrorBoundary } from "./error";
 import { awTheme } from "./theme";
 
