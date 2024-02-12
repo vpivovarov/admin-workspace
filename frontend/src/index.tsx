@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { ThemeProvider } from "react-jss";
 
 import App from "./App";
+import { ErrorBoundary } from "./error";
 import { awTheme } from "./theme";
 
 const root = ReactDOM.createRoot(
@@ -10,9 +11,11 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={awTheme}>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>
+  <ErrorBoundary>
+    <React.StrictMode>
+      <ThemeProvider theme={awTheme}>
+        <App />
+      </ThemeProvider>
+    </React.StrictMode>
+  </ErrorBoundary>
 );
