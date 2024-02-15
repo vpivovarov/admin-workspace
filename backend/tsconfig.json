@@ -1,24 +1,10 @@
 {
-    "extends": "@tsconfig/node18/tsconfig.json",
-    "compilerOptions": {
-      "allowJs": true,
-      "alwaysStrict": true,
-      "strictNullChecks": true,
-      "exactOptionalPropertyTypes": true,
-      "noFallthroughCasesInSwitch": true,
-      "noImplicitOverride": true,
-      "noImplicitReturns": true,
-      "noImplicitAny": true,
-      "noUncheckedIndexedAccess": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "strictPropertyInitialization": true,
-      "useUnknownInCatchVariables": true
-    },
-    "include": [
-      "index.ts",
-      "src/**/*"
-    ],
-    "exclude": ["./node_modules"]
-  }
-  
+  "extends": "fastify-tsconfig",
+  "compilerOptions": {
+  "outDir": "dist",
+  "declaration": false,
+  "sourceMap": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [".eslintrc.js"]
+ }
