@@ -6,7 +6,7 @@ server.get("/ping", async (_request, _reply) => "pong\n");
 
 server.listen({ port: 8080 }, (err, address) => {
   if (err) {
-    console.error(`${err.message} 111`);
+    console.error(err.message);
     process.exitCode = 1;
   }
   console.warn(`Server listening at ${address}`);
