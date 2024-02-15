@@ -1,8 +1,6 @@
 module.exports = {
   extends: ["standard-with-typescript", "prettier"],
-  parserOptions: {
-    project: "./tsconfig.json",
-  },
+  parser: "@typescript-eslint/parser",
   rules: {
     "@typescript-eslint/consistent-type-assertions": "off",
     "@typescript-eslint/no-floating-promises": "off",

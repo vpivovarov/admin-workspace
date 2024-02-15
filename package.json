@@ -4,9 +4,6 @@
   "description": "Demo project to show our skills",
   "main": "index.js",
   "scripts": {
-    "lint-be":"cd ./backend && npx lint-staged && cd ..",
-    "lint-fe":"npm run lint --prefix ./frontend",
-    "lint": "npx lint-staged",
     "build-backend": "npm run build --prefix ./backend",
     "start-backend": "npm start --prefix ./backend",
     "start-fe": "npm run start --prefix ./frontend",
@@ -34,12 +31,13 @@
   "homepage": "https://github.com/vpivovarov/admin-workspace#readme",
   "devDependencies": {
     "husky": "9.0.10",
+    "lint-staged": "^15.2.2",
     "npm-run-all": "^4.1.5"
   },
   "lint-staged": {
     "*.ts": [
-      "prettier — config .prettierrc 'src/**/*.ts' — write",
-      "eslint . — ext .ts — fix"
+      "npx prettier --write --ignore-unknown",
+      "npx eslint --ext .ts --fix"
     ]
   }
 }

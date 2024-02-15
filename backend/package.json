@@ -58,11 +58,5 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3"
-  },
-  "lint-staged": {
-    "*.ts": [
-      "prettier — config .prettierrc 'src/**/*.ts' — write",
-      "eslint . — ext .ts — fix"
-    ]
   }
 }

@@ -30,6 +30,6 @@ fi
 
 echo "[${GREEN}success${RESET}] Finish checking branch name.\n"
 
-npm run lint
+npx lint-staged
 
 exit 0
