@@ -6,7 +6,7 @@
   "scripts": {
     "init-db": "openssl rand -base64 32 > ./backend/db/password.txt",
     "start-fe": "npm run start --prefix ./frontend",
-    "start-be": "BUILD_TARGET=dev BUILD_PORT=8080 docker compose -f ./backend/compose.yaml up --build",
+    "start": "docker compose up --build",
     "init-fe": "npm i --prefix ./frontend",
     "init-ws": "npm i",
     "init": "npm-run-all init-ws init-fe init-db",

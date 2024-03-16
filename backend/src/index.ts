@@ -1,6 +1,7 @@
 import Fastify from "fastify";
 import App from "./app";
-import CORS from "@fastify/cors";
+
+const PORT = process.env.PORT ? Number.parseInt(process.env.PORT) : 9000;
 
 async function start(): Promise<void> {
   const fastify = Fastify({
@@ -9,13 +10,13 @@ async function start(): Promise<void> {
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   await fastify.register(App);
-  await fastify.register(CORS, {
-    origin: ["http://localhost:3000"],
-  });
+  // await fastify.register(CORS, {
+  //   origin: ["http://localhost:3000"],
+  // });
 
-  await fastify.listen({
+  fastify.listen({
     host: "0.0.0.0",
-    port: 8080,
+    port: PORT,
   });
 }
 

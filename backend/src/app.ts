@@ -20,7 +20,7 @@ export default async function (
 
   // GET /movies endpoint
   fastify.route({
-    url: "/movies",
+    url: "/api/movies",
     method: "GET",
     handler: function myHandler(request, reply) {
       reply.send({
@@ -31,7 +31,7 @@ export default async function (
     },
   });
 
-  fastify.get("/movies/:movieGenre", function getMovie(request, reply) {
+  fastify.get("/api/movies/:movieGenre", function getMovie(request, reply) {
     const requestParams = request.params as { movieGenre: string };
     const searchingFor = requestParams.movieGenre;
     const result = favMovies.filter((movie) => movie.genre === searchingFor);
@@ -49,7 +49,7 @@ export default async function (
   });
 
   fastify.route({
-    url: "/movies",
+    url: "/api/movies",
     method: "POST",
     handler: function handler(request, reply) {
       const data = request.body as FavMovies;

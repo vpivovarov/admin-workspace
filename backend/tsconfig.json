@@ -17,6 +17,6 @@
     "sourceMap": true,
     "lib": ["ESNext"]
   },
-  "include": ["src/**/*.ts", "migrations/**/*.ts"],
+  "include": ["src/**/*.ts", "migrations/**/*.ts", "environment.d.ts"],
   "exclude": [".eslintrc.js", "seeds/**/*.ts"]
 }
