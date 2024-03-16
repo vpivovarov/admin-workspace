@@ -12,8 +12,12 @@ module.exports = {
       max: 10,
     },
     migrations: {
+      getNewMigrationName: (name: string) => {
+        return `${name}.ts`;
+      },
       directory: __dirname + "/migrations",
       tableName: "knex_migrations",
+      extension: "ts",
     },
     seeds: {
       directory: __dirname + "/seeds/development",

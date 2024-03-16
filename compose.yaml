@@ -1,0 +1,82 @@
+services:
+  backend:
+    container_name: fastify-server
+    build:
+      context: backend
+      target: dev
+    working_dir: /app
+    environment:
+      PORT: 9000  
+      NODE_ENV: development
+      POSTGRES_HOST: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-password
+      POSTGRES_DB: aw-db
+    depends_on:
+      db:
+        condition: service_healthy
+    secrets:
+      - db-password
+    tty: true
+    networks:
+      - app-network
+    command: npm run dev  
+
+
+  frontend:
+    build:
+      context: frontend
+    container_name: react-server
+    working_dir: /app
+    tty: true
+    networks:
+      - app-network
+    command: npm start
+
+
+  nginx:
+    build: 
+      context: nginx
+    container_name: nginx-web-server
+    restart: always
+    tty: true
+    ports:
+      - "8000:80"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - app-network
+
+
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    user: postgres
+    tty: true
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=aw-db
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+      
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: ./backend/db/password.txt
+networks:
+  app-network:
