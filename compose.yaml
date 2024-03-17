@@ -4,6 +4,8 @@ services:
     build:
       context: backend
       target: dev
+      tags:
+        - "fastify-server:backend"
     working_dir: /app
     environment:
       PORT: 9000  
@@ -26,6 +28,8 @@ services:
   frontend:
     build:
       context: frontend
+      tags:
+        - "react-server:frontend"
     container_name: react-server
     working_dir: /app
     tty: true
@@ -37,6 +41,8 @@ services:
   nginx:
     build: 
       context: nginx
+      tags:
+        - "nginx-server:nginx"
     container_name: nginx-web-server
     restart: always
     tty: true
