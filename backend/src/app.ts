@@ -49,7 +49,7 @@ export default async function (
   });
 
   fastify.route({
-    url: "  ",
+    url: "/api/movies",
     method: "POST",
     handler: function handler(request, reply) {
       const data = request.body as FavMovies;
