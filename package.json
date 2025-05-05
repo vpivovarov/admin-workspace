@@ -31,7 +31,8 @@
   "lint-staged": {
     "*.ts": [
       "npx prettier --write --ignore-unknown",
-      "cd backend && npm run lint --fix && cd .. && cd frontend && npm run lint --fix"
+      "cd backend && npm run lint --fix",
+      "cd frontend && npm run lint --fix"
     ]
   }
 }
