@@ -4,12 +4,8 @@
   "description": "Demo project to show our skills",
   "main": "index.js",
   "scripts": {
-    "init-db": "openssl rand -base64 32 > ./backend/db/password.txt",
-    "start-fe": "npm run start --prefix ./frontend",
-    "start": "docker compose up --build",
-    "init-fe": "npm i --prefix ./frontend",
-    "init-ws": "npm i",
-    "init": "npm-run-all init-ws init-fe init-db",
+    "build": "docker compose up --build",
+    "start": "docker compose up",
     "prepare": "husky"
   },
   "repository": {
@@ -35,7 +31,7 @@
   "lint-staged": {
     "*.ts": [
       "npx prettier --write --ignore-unknown",
-      "npx eslint --ext .ts --fix"
+      "cd backend && npm run lint --fix && cd .. && cd frontend && npm run lint --fix"
     ]
   }
 }

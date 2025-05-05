@@ -10,9 +10,6 @@ async function start(): Promise<void> {
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   await fastify.register(App);
-  // await fastify.register(CORS, {
-  //   origin: ["http://localhost:3000"],
-  // });
 
   fastify.listen({
     host: "0.0.0.0",
