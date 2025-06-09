@@ -10,8 +10,7 @@ Demo project that shows our implementation of admin panel.
 
 
 ### How to start
-#### Make sure you have started Docker
-1. Make sure that you have installed `v18.19.0` [NodeJS](https://nodejs.org/download/release/v18.19.0/)
+1. #### Make sure you have started [Docker](https://www.docker.com/products/docker-desktop/)
 2. Open sidebar `Settings->SSH and GPG keys`
 3. Follow the [instruction](https://docs.github.com/authentication/connecting-to-github-with-ssh)
 4. Run `git clone git@github.com:vpivovarov/admin-workspace.git`
