@@ -3,7 +3,7 @@ import { createUseStyles } from "react-jss";
 
 import { AwTheme } from "../../theme";
 import { fonts } from "../../theme/base-configuration";
-import { Sidebar } from "../";
+import { Page, Sidebar } from "../";
 
 /**
  * App component
@@ -14,6 +14,7 @@ function App() {
   return (
     <div className={styles.root}>
       <Sidebar />
+      <Page />
     </div>
   );
 }

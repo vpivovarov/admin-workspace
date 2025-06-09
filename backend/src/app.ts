@@ -1,16 +1,6 @@
 import { type FastifyInstance, type FastifyPluginOptions } from "fastify";
 import Sensible from "@fastify/sensible";
-
-// Favmovies interface and variable
-
-interface FavMovies {
-  title: string;
-  description: string;
-  genre: string;
-}
-
-/** Our simple database for movies **/
-const favMovies: FavMovies[] = [];
+import { db } from "./db";
 
 export default async function (
   fastify: FastifyInstance,
@@ -18,57 +8,32 @@ export default async function (
 ) {
   await fastify.register(Sensible);
 
-  // GET /movies endpoint
-  fastify.route({
-    url: "/api/movies",
-    method: "GET",
-    handler: function myHandler(request, reply) {
-      reply.send({
-        message: "Movies listed successfully",
-        success: true,
-        data: favMovies,
-      });
-    },
+  // GET all endpoints, shows available API endpoints
+  fastify.get("/api/all_endpoints", async function myHandler(request, reply) {
+    const allEndpoints = await db("all_endpoints").select("*");
+    reply.send({
+      message: "All available API endpoints",
+      success: true,
+      data: allEndpoints,
+    });
   });
 
-  fastify.get("/api/movies/:movieGenre", function getMovie(request, reply) {
-    const requestParams = request.params as { movieGenre: string };
-    const searchingFor = requestParams.movieGenre;
-    const result = favMovies.filter((movie) => movie.genre === searchingFor);
-    if (result) {
-      return {
-        message: "Movie info found succesfully",
-        success: true,
-        data: result,
-      };
-    } else {
-      throw fastify.httpErrors.notFound(
-        `Could not find movies with the genre: ${searchingFor}`,
-      );
-    }
+  fastify.get("/api/socials", async function getSocials(request, reply) {
+    const socials = await db("socials").select("*");
+    reply.send({
+      message: "Socials listed successfully",
+      success: true,
+      data: socials,
+    });
   });
 
-  fastify.route({
-    url: "/api/movies",
-    method: "POST",
-    handler: function handler(request, reply) {
-      const data = request.body as FavMovies;
-      if (!data?.title || !data?.description || !data.genre) {
-        throw fastify.httpErrors.badRequest(
-          "Please ensure all information, title, description and genre are provided",
-        );
-      }
-      favMovies.push({
-        title: data.title,
-        description: data.description,
-        genre: data.genre,
-      });
+  fastify.get("/api/users", async function handler(request, reply) {
+    const users = await db("users").select("*");
 
-      reply.send({
-        message: "Movie added succesfully",
-        success: true,
-        data: null,
-      });
-    },
+    reply.send({
+      message: "Users listed successfully",
+      success: true,
+      data: users,
+    });
   });
 }

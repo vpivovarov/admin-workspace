@@ -15,7 +15,7 @@
     "start": "node dist/index.js",
     "prepare": "husky install",
     "migrate:make": "knex migrate:make",
-    "migrate:latest": "knex migrate:latest",
+    "migrate:latest": "knex migrate:latest --env development",
     "migrate:rollback": "knex migrate:rollback",
     "migrate:up": "knex migrate:up",
     "migrate:down": "knex migrate:down",

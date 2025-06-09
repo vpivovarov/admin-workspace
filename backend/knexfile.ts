@@ -1,43 +1,40 @@
+import { Knex } from "knex";
+
 require("ts-node/register");
 require("dotenv").config();
+const fs = require("fs").promises;
 
-module.exports = {
-  development: {
-    client: "pg",
-    connection: {
-      connectionString: process.env.DATABASE_URL,
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: {
-      getNewMigrationName: (name: string) => {
-        return `${name}.ts`;
-      },
-      directory: __dirname + "/migrations",
-      tableName: "knex_migrations",
-      extension: "ts",
-    },
-    seeds: {
-      directory: __dirname + "/seeds/development",
-    },
+const config: Knex.Config = {
+  client: "pg",
+  connection: async () => {
+    try {
+      const pathToPassword = "/app/secrets/db-password.txt";
+      const dbPassword = await fs.readFile(pathToPassword, "utf8");
+
+      return {
+        host: process.env.POSTGRES_HOST,
+        user: process.env.POSTGRES_USER,
+        port: 5432,
+        password: dbPassword.trim(),
+        database: process.env.POSTGRES_DB,
+      };
+    } catch (error) {
+      console.error("Error reading database password:", error);
+      throw error;
+    }
   },
-  testing: {
-    client: "pg",
-    connection: {
-      connectionString: "postgres://postgres:password@localhost:5432/aw-db",
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: {
-      directory: __dirname + "/migrations",
-      tableName: "knex_migrations",
-    },
-    seeds: {
-      directory: __dirname + "/seeds/testing",
-    },
+  pool: {
+    min: 2,
+    max: 10,
+  },
+  migrations: {
+    directory: __dirname + "/migrations",
+    tableName: "knex_migrations",
+    extension: "ts",
+  },
+  seeds: {
+    directory: __dirname + "/seeds/development",
   },
 };
+
+export default config;

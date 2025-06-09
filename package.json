@@ -4,8 +4,10 @@
   "description": "Demo project to show our skills",
   "main": "index.js",
   "scripts": {
-    "build": "docker compose up --build",
-    "start": "docker compose up",
+    "build": "docker compose up -d --build",
+    "start": "docker compose up -d",
+    "migrate": "docker compose exec backend sh -c 'npm run migrate:latest'",
+    "migrate:make": "docker compose exec backend sh -c 'npm run migrate:make -- \"$@\"'",
     "prepare": "husky"
   },
   "repository": {

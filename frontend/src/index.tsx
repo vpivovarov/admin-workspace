@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { ThemeProvider } from "react-jss";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import { App } from "./components";
 import { ErrorBoundary } from "./error";
@@ -10,12 +11,16 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
+const queryClient = new QueryClient();
+
 root.render(
   <ErrorBoundary>
     <React.StrictMode>
-      <ThemeProvider theme={awTheme}>
-        <App />
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={awTheme}>
+          <App />
+        </ThemeProvider>
+      </QueryClientProvider>
     </React.StrictMode>
   </ErrorBoundary>
 );

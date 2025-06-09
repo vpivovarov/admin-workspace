@@ -1,0 +1,130 @@
+import { Knex } from "knex";
+
+export async function seed(knex: Knex): Promise<void> {
+  // Deletes ALL existing entries
+  await knex("users").del();
+
+  // Inserts seed entries
+  await knex("users").insert([
+    {
+      id: 1,
+      name: "John Doe",
+      email: "john.doe@example.com",
+      password: "!Dasdf@*9",
+      role: "admin",
+      status: "active",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      email: "jane.smith@example.com",
+      password: "Beap&7821",
+      role: "user",
+      status: "active",
+    },
+    {
+      id: 3,
+      name: "Jim Beam",
+      email: "jim.beam@example.com",
+      password: "KvvJi9$31s",
+      role: "user",
+      status: "active",
+    },
+    {
+      id: 4,
+      name: "Sarah Johnson",
+      email: "sarah.johnson@example.com",
+      password: "sarahPass123!",
+      role: "user",
+      status: "inactive",
+    },
+    {
+      id: 5,
+      name: "Mike Wilson",
+      email: "mike.wilson@example.com",
+      password: "mikeSecure456@",
+      role: "user",
+      status: "active",
+    },
+    {
+      id: 6,
+      name: "Emily Brown",
+      email: "emily.brown@example.com",
+      password: "emilyPass789#",
+      role: "user",
+      status: "suspended",
+    },
+    {
+      id: 7,
+      name: "David Lee",
+      email: "david.lee@example.com",
+      password: "davidPass321$",
+      role: "user",
+      status: "active",
+    },
+    {
+      id: 8,
+      name: "Lisa Anderson",
+      email: "lisa.anderson@example.com",
+      password: "lisaSecure654%",
+      role: "user",
+      status: "inactive",
+    },
+    {
+      id: 9,
+      name: "Tom Harris",
+      email: "tom.harris@example.com",
+      password: "tomPass987^",
+      role: "user",
+      status: "active",
+    },
+    {
+      id: 10,
+      name: "Rachel Green",
+      email: "rachel.green@example.com",
+      password: "rachelSecure147&",
+      role: "user",
+      status: "suspended",
+    },
+    {
+      id: 11,
+      name: "Chris Martin",
+      email: "chris.martin@example.com",
+      password: "chrisPass258*",
+      role: "user",
+      status: "active",
+    },
+    {
+      id: 12,
+      name: "Jessica Taylor",
+      email: "jessica.taylor@example.com",
+      password: "jessicaSecure369(",
+      role: "user",
+      status: "inactive",
+    },
+    {
+      id: 13,
+      name: "Kevin White",
+      email: "kevin.white@example.com",
+      password: "kevinPass741)",
+      role: "user",
+      status: "active",
+    },
+    {
+      id: 14,
+      name: "Amanda Clark",
+      email: "amanda.clark@example.com",
+      password: "amandaSecure852+",
+      role: "user",
+      status: "suspended",
+    },
+    {
+      id: 15,
+      name: "Ryan Miller",
+      email: "ryan.miller@example.com",
+      password: "ryanPass963=",
+      role: "user",
+      status: "active",
+    },
+  ]);
+}
