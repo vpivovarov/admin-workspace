@@ -15,4 +15,4 @@ Demo project that shows our implementation of admin panel.
 4. Run `git clone git@github.com:vpivovarov/admin-workspace.git`
 5. Go to the project
 6. Run `npm run build`
-8. On next starts just run `npm start`
+7. On next starts just run `npm start`
