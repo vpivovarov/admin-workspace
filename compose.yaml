@@ -8,22 +8,30 @@ services:
         - "fastify-server:backend"
     working_dir: /app
     environment:
-      PORT: 9000  
+      PORT: 9000
       NODE_ENV: development
       POSTGRES_HOST: db
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD_FILE: /run/secrets/db-password
+      POSTGRES_PASSWORD_FILE: /app/secrets/db-password.txt
       POSTGRES_DB: aw-db
     depends_on:
       db:
         condition: service_healthy
-    secrets:
-      - db-password
+    volumes:
+      # Mount the shared volume to access the generated password
+      - db_secrets_volume:/app/secrets
     tty: true
     networks:
       - app-network
-    command: npm run dev  
-
+    command: >
+      sh -c "
+        echo 'PostgreSQL is ready, running migrations...' &&
+        npm run migrate:latest &&
+        echo 'Migrations completed, running seeds...' &&
+        npm run seed:run &&
+        echo 'Seeds completed' &&
+        npm run dev
+      "
 
   frontend:
     build:
@@ -37,9 +45,9 @@ services:
       - app-network
     command: npm start
 
-
   nginx:
-    build: 
+    image: nginx:latest
+    build:
       context: nginx
       tags:
         - "nginx-server:nginx"
@@ -53,21 +61,44 @@ services:
       - frontend
     networks:
       - app-network
-
+  # Service to initialize secrets
+  init_secrets:
+    image: alpine:latest
+    container_name: init_db_secrets
+    volumes:
+      - db_secrets_volume:/var/run/secrets
+    command: >
+      sh -c "apk add --no-cache openssl && 
+            if [ ! -f /var/run/secrets/db-password.txt ]; then
+             echo '[init_secrets] openssl installed' &&
+             addgroup -g 2000 secrets_reader &&
+             echo '[init_secrets] secrets_reader group created' &&
+             openssl rand -base64 32 > /var/run/secrets/db-password.txt && 
+             echo '[init_secrets] db-password.txt created' &&
+             chown 0:2000 /var/run/secrets/db-password.txt &&
+             echo '[init_secrets] db-password.txt ownership set' &&
+             chmod 644 /var/run/secrets/db-password.txt &&
+             echo '[init_secrets] db-password.txt permissions set' &&
+             echo '[init_secrets] done'
+            else
+             echo '[init_secrets] db-password.txt already exists, skipping generation.'
+            fi"
+    networks:
+      - app-network
 
   db:
     image: postgres
     container_name: db
     restart: always
+    shm_size: 128mb
     user: postgres
     tty: true
-    secrets:
-      - db-password
     volumes:
       - db-data:/var/lib/postgresql/data
+      - db_secrets_volume:/run/secrets # This path is what POSTGRES_PASSWORD_FILE expects
     environment:
       - POSTGRES_DB=aw-db
-      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password.txt
     expose:
       - 5432
     healthcheck:
@@ -77,12 +108,12 @@ services:
       retries: 5
     networks:
       - app-network
+    depends_on:
+      init_secrets:
+        condition: service_completed_successfully
 
-      
 volumes:
   db-data:
-secrets:
-  db-password:
-    file: ./backend/db/password.txt
+  db_secrets_volume:
 networks:
   app-network:
